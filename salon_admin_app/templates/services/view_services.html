@@ -1,0 +1,137 @@
+{% extends "master_dashbord.html" %}
+{% load static %}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<!-- main content -->
+<div class="container">
+		<div class="page-inner">
+				<div class="page-header">
+						<h3 class="fw-bold mb-3">Services Management</h3>
+						<ul class="breadcrumbs mb-3">
+								<li class="nav-home">
+										<a href="/">
+												<i class="icon-home"></i>
+										</a>
+								</li>
+								<li class="separator">
+										<i class="icon-arrow-right"></i>
+								</li>
+								<li class="nav-item">
+										<a href="#">Services</a>
+								</li>
+						</ul>
+				</div>
+				<div class="row mb-4">
+						<div class="col-md-12">
+								<form method="GET" action="{% url 'view_services' %}">
+										<div class="row g-3">
+												<!-- Name Search Input -->
+												<div class="col-md-4">
+														<label for="search-name" class="form-label">Name</label>
+														<input type="text" class="form-control" id="search-name" placeholder="Search by name"
+																	 name="search_name" value="{{ search_name }}">
+												</div>
+												<!--Category Search Dropdown-->
+												<div class="col-md-4">
+														<label for="search-category" class="form-label">Category</label>
+														<select class="form-select" id="search-category" name="search_category">
+																<option value="">Select Course</option> <!-- Default option -->
+																{% for category in category_list %}
+																<option value="{{ category.id }}" {% if search_category == category.id %}selected{% endif %}>
+																		{{ category.name }}
+																</option>
+																{% endfor %}
+														</select>
+												</div>
+
+												<!-- Date of Add Filter Range -->
+												<div class="col-md-4">
+														<label for="search_doa_start" class="form-label">Start Date</label>
+														<input type="date" class="form-control" id="search_doa_start" name="search_doa_start"
+																	 value="{{ search_doa_start }}">
+														<span class="text-danger">{{ date_error_message }}</span>
+
+												</div>
+												<div class="col-md-4">
+														<label for="search_doa_end" class="form-label">End Date</label>
+														<input type="date" class="form-control" id="search_doa_end" name="search_doa_end"
+																	 value="{{ search_doa_end }}">
+														<span class="text-danger">{{ date_error_message }}</span>
+												</div>
+
+												<!-- Action Buttons -->
+												<div class="col-md-3 d-flex align-items-end">
+														<button type="submit" class="btn btn-primary me-2 w-100">
+																<i class="fa fa-search"></i> Search
+														</button>
+														{% if search_name or search_category or search_doa_start or search_doa_end %}
+														<a href="{% url 'view_services' %}" class="btn btn-secondary w-100">
+																<i class="bi bi-arrow-clockwise"></i> Reset
+														</a>
+														{% endif %}
+												</div>
+										</div>
+								</form>
+						</div>
+				</div>
+
+				<div class="row">
+						<div class="col-md-12">
+								<div class="card">
+										<div class="card-header d-flex justify-content-between align-items-center">
+												<h4 class="card-title">Services</h4>
+												<a href="{% url 'add_services' %}" class="btn btn-primary ms-auto btn-round">Add Services</a>
+										</div>
+
+										<div class="card-body">
+												<div class="table-responsive">
+														<table
+																		id="basic-datatables"
+																		class="display table table-striped table-hover"
+														>
+																<thead>
+																<tr>
+																		<th>ID</th>
+																		<th>Name</th>
+																		<th>Category</th>
+																		<th>Price</th>
+																		<th>Duration</th>
+																		<th>created_at</th>
+																		<th>ACTION</th>
+																</tr>
+																</thead>
+																{% for services in services_list %}
+																<tbody>
+																<tr>
+																		<td>{{ services.id }}</td>
+																		<td>{{ services.name }}</td>
+																		<td>{{ services.category }}</td>
+																		<td>{{ services.price }}</td>
+																		<td>{{ services.duration }}</td>
+																		<td>{{ services.created_at }}</td>
+																		<td>
+																				<a href="{% url 'edit_services' services.id %}" title="Edit"><i
+																								class="fas fa-edit"></i></a> ||
+																				<a href="{% url 'delete_services' services.id %}" title="Delete"
+																					 onclick="return confirm('Are you sure you want to delete this?')"><i
+																								class="fas fa-trash-alt"></i></a>
+																		</td>
+																</tr>
+																{% empty %}
+																<tr>
+																		<td colspan="8" class="text-center">No Services found</td>
+																</tr>
+																</tbody>
+																{% endfor %}
+														</table>
+												</div>
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
+</div>
+<!-- End main content -->
+{% endblock %}
+

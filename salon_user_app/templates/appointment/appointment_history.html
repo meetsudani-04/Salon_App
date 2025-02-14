@@ -1,0 +1,65 @@
+{% extends "master_user_index.html" %}
+{% load static %}
+{% block title %}Service{% endblock %}
+{% block extended %}{% endblock %}
+
+{% block content %}
+<!-- main content -->
+<div class="container py-5">
+		<div class="row mb-4">
+				<div class="col">
+						<h2 class="text-center">Appointment History</h2>
+						<p class="text-center text-muted">Browse through our services and find the best one for you.</p>
+				</div>
+		</div>
+
+		<!-- Begin:: Services Section -->
+		<div class="table-responsive">
+				<table class="table text-center">
+						<thead class="table-light">
+						<tr>
+								<th scope="col">#</th>
+								<th>Name</th>
+								<th>Phone</th>
+								<th>Services</th>
+								<th>date</th>
+								<th>time</th>
+								<th>Status</th>
+								<th>Total Price</th>
+								<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for appointment in appointment_obj %}
+						<tr>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ appointment.name }}</td>
+								<td>{{ appointment.phone }}</td>
+								<td>
+										{% for service in appointment.services.all %}
+										{{ service.name }}
+										{% if not forloop.last %},{% endif %}
+										{% endfor %}
+
+								</td>
+								<td>{{ appointment.date|date:"F j, Y" }}</td>
+								<td>{{ appointment.date|time:"h:i A" }}</td>
+								<td>{{ appointment.formatted_status }}</td> {% comment %} formatted_status use in model.py file {% endcomment %}
+								<td>{{ appointment.total_service_price }}</td>
+								<td><a href="/appointment/history/{{ appointment.id }}/single">Views</a></td>
+						</tr>
+						{% empty %}
+						<tr>
+								<td colspan="3" class="text-center">No Services found</td>
+						</tr>
+						{% endfor %}
+						</tbody>
+				</table>
+		</div>
+</div>
+<!-- End main content -->
+
+{% endblock %}
+
+{% block extra_scripts %}{% endblock %}
+

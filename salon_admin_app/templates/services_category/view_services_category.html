@@ -1,0 +1,120 @@
+{% extends "master_dashbord.html" %}
+{% load static %}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<!-- main content -->
+<div class="container">
+		<div class="page-inner">
+				<div class="page-header">
+						<h3 class="fw-bold mb-3">Services Category Management</h3>
+						<ul class="breadcrumbs mb-3">
+								<li class="nav-home">
+										<a href="/">
+												<i class="icon-home"></i>
+										</a>
+								</li>
+								<li class="separator">
+										<i class="icon-arrow-right"></i>
+								</li>
+								<li class="nav-item">
+										<a href="#">Services Category</a>
+								</li>
+						</ul>
+				</div>
+				<div class="row mb-4">
+    <div class="col-md-12">
+        <form method="GET" action="{% url 'view_services_category' %}">
+            <div class="row g-3">
+                <!-- Name Search Input -->
+                <div class="col-md-4">
+                    <label for="search-name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="search-name" placeholder="Search by name"
+                           name="search_name" value="{{ search_name }}">
+                </div>
+
+								<!-- Date of Add Filter Range -->
+								<div class="col-md-4">
+										<label for="search_doa_start" class="form-label">Start Date</label>
+										<input type="date" class="form-control" id="search_doa_start" name="search_doa_start"
+													 value="{{ search_doa_start }}">
+										<span class="text-danger">{{ date_error_message }}</span>
+
+								</div>
+								<div class="col-md-4">
+										<label for="search_doa_end" class="form-label">End Date</label>
+										<input type="date" class="form-control" id="search_doa_end" name="search_doa_end"
+													 value="{{ search_doa_end }}">
+										<span class="text-danger">{{ date_error_message }}</span>
+								</div>
+
+                <!-- Action Buttons -->
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2 w-100">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                    {% if search_name or search_doa_start or search_doa_end %}
+                    <a href="{% url 'view_services_category' %}" class="btn btn-secondary w-100">
+                        <i class="bi bi-arrow-clockwise"></i> Reset
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+				<div class="row">
+						<div class="col-md-12">
+								<div class="card">
+										<div class="card-header d-flex justify-content-between align-items-center">
+												<h4 class="card-title">Services</h4>
+												<a href="{% url 'add_services_category' %}" class="btn btn-primary ms-auto btn-round">Add Services Category</a>
+										</div>
+
+										<div class="card-body">
+												<div class="table-responsive">
+														<table
+																		id="basic-datatables"
+																		class="display table table-striped table-hover"
+														>
+																<thead>
+																<tr>
+																		<th>ID</th>
+																		<th>Name</th>
+																		<th>Description</th>
+																		<th>created_at</th>
+																		<th>ACTION</th>
+																</tr>
+																</thead>
+																<tbody>
+																{% for services_category in services_category_list %}
+																		<tr>
+																				<td>{{ services_category.id }}</td>
+																				<td><a	href="/salon_admin/services/?search_category={{ services_category.id }}"> {{ services_category.name }}</a></td>
+																				<td>{{ services_category.description }}</td>
+																				<td>{{ services_category.created_at }}</td>
+																				<td>
+																						<a href="{% url 'edit_services_category' services_category.id %}" title="Edit"><i class="fas fa-edit"></i></a> ||
+																						<a href="{% url 'delete_services_category' services_category.id %}" title="Delete" onclick="return confirm('Are you sure you want to delete this?')"><i
+																								class="fas fa-trash-alt"></i></a>
+
+																				</td>
+																		</tr>
+																		{% empty %}
+																		<tr>
+																				<td colspan="5" class="text-center">No Services Category found</td>
+																		</tr>
+																	{% endfor %}
+																</tbody>
+														</table>
+												</div>
+										</div>
+								</div>
+						</div>
+				</div>
+		</div>
+</div>
+<!-- End main content -->
+{% endblock %}
+

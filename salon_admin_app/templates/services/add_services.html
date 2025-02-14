@@ -1,0 +1,100 @@
+{% extends "master_dashbord.html" %}
+{% load static %}
+{% block title %}Add Services{% endblock %}
+
+{% block content %}
+<!-- main content -->
+<div class="container">
+	<div class="page-inner">
+		<div class="page-header">
+			<h3 class="fw-bold mb-3">Services Management</h3>
+			<ul class="breadcrumbs mb-3">
+				<li class="nav-home">
+					<a href="/ ">
+						<i class="icon-home"></i>
+					</a>
+				</li>
+				<li class="separator">
+					<i class="icon-arrow-right"></i>
+				</li>
+				<li class="nav-item">
+					<a href="/services">Services</a>
+				</li>
+				<li class="separator">
+					<i class="icon-arrow-right"></i>
+				</li>
+				<li class="nav-item">
+					<a href="#">Add Services</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Add Services</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<form method="post" autocomplete="off">
+								{% csrf_token %}
+								<div class="col-md col-lg">
+									<div class="form-group">
+										<label for="name">Name</label>
+										<input
+												type="text"
+												class="form-control"
+												id="name"
+												placeholder="Enter Services Name"
+												name="name"
+												value="{{services_obj.name}}"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="price">Price</label>
+										<input
+												type="text"
+												class="form-control"
+												id="price"
+												placeholder="Enter Services Price"
+												name="price"
+												value="{{services_obj.price}}"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="category">Category</label>
+										<select class="form-select" id="category" name="category">
+											{% for category in services_category_list %}
+											<option value="{{category.id}}">
+													{% if services_obj.category_id == category.id %}selected{% endif %} {{ category.name }}
+											</option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="duration">Duration</label>
+										<input
+												type="text"
+												class="form-control"
+												id="duration"
+												placeholder="Enter duration"
+												name="duration"
+												value="{{services_obj.duration}}"
+										/>
+									</div>
+									<div class="form-group">
+										<input type="submit" class="btn btn-primary"
+											   value="{% if services_obj %}Edit{% else %}Add{% endif %}"/>
+									</div>
+								</div>
+							</form>
+								<p style="color:red">{{error}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End main content -->
+{% endblock %}

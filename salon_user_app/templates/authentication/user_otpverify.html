@@ -1,0 +1,47 @@
+{% extends "authentication/user_master_login.html" %}
+{% load static %}
+{% block title %} OTP Verification {% endblock %}
+
+{% block content %}
+<form method="post">
+		{% csrf_token %}
+		<div class="form-floating mb-4">
+
+				<div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+						<input class="m-2 text-center form-control rounded" type="text" id="first" name="first"  maxlength="1"/>
+						<input class="m-2 text-center form-control rounded" type="text" id="second" name="second"  maxlength="1"/>
+						<input class="m-2 text-center form-control rounded" type="text" id="third" name="third"  maxlength="1"/>
+						<input class="m-2 text-center form-control rounded" type="text" id="fourth" name="fourth"  maxlength="1"/>
+						<input class="m-2 text-center form-control rounded" type="text" id="fifth" name="fifth"  maxlength="1"/>
+						<input class="m-2 text-center form-control rounded" type="text" id="sixth" name="sixth"  maxlength="1"/>
+				</div>
+				<span id="otp_v_error" class="text-danger"></span>
+
+		</div>
+		<div class="form-outline mb-4 d-grid">
+				<input type="submit" value="Verify" class="btn btn-primary btn-block"/>
+		</div>
+
+		<div class="text-center">
+				<p class="text-secondary">Didn't receive the OTP?</p>
+				<form method="post">
+						{% csrf_token %}
+						<a href="{% url 'user_resend_otp_view' cid %}">Resend OTP</a>
+				</form>
+				{% if error %}
+				<p style="color: red;">{{ error }}</p>
+				{% endif %}
+		</div>
+</form>
+
+<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+	function OTPInput() {
+	const inputs = document.querySelectorAll('#otp > *[id]');
+	for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
+</script>
+{% endblock %}
+{% block extrascript %}
+<script src="{% static 'New folder/js/otpverify.js' %}"></script>
+{% endblock %}

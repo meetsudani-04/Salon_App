@@ -1,0 +1,21 @@
+
+body {
+  background-color: #eee;
+}
+#logo{
+  width: 185px;
+}
+#side_img{
+  background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+}
+.password-container {
+  position: relative;
+}
+.password-container .bi {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+ 

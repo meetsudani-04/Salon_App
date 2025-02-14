@@ -1,0 +1,64 @@
+{% extends "authentication/user_master_login.html" %}
+{% load static %}
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+<form id="signup_form" method="POST">
+		{% csrf_token %}
+		<div class="row mb-4">
+				<div class="col">
+
+						<div class="form-floating">
+								<input type="text" class="form-control" name="fname" id="fname" placeholder="First Name"
+											 value="{{ fname }}"/>
+								<label for="fname">First Name<span class="text-danger">*</span></label>
+								<span id="fname_error" class="text-danger"></span>
+						</div>
+				</div>
+				<div class="col">
+						<div class="form-floating">
+								<input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name"/>
+								<label for="lname">Last Name<span class="text-danger">*</span></label>
+								<span id="lname_error" class="text-danger"></span>
+						</div>
+				</div>
+		</div>
+
+		<div class="form-floating mb-4">
+				<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com"
+							 autocomplete="off"/>
+				<label for="email">Email <span class="text-danger">*</span></label>
+				<span id="email_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-floating mb-4 password-container">
+				<input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
+				<label for="password">Password <span class="text-danger">*</span></label>
+				<i class="bi bi-eye-slash" id="togglePassword"></i>
+				<span id="password_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-floating mb-4">
+				<input type="text" class="form-control" name="confirm_password" id="confirm_password"
+							 placeholder="Confirm Password"/>
+				<label for="confirm_password">Confirm Password<span class="text-danger">*</span></label>
+				<span id="confirm_password_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-outline mb-4 d-grid">
+				<input type="submit" value="Register" class="btn btn-primary btn-block"/>
+		</div>
+
+		<div class="d-flex align-items-center justify-content-center pb-4">
+				<p class="mb-0 me-2">Have already an account?</p>
+				<a href="/login/">
+						<button type="button" class="btn btn-outline-danger">Login here</button>
+				</a>
+		</div>
+		<p style="color:red">{{ error }}</p>
+</form>
+
+{% endblock %}
+{% block extrascript %}
+<!--<script src="{% static 'New folder/js/signup.js' %}"></script>-->
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "authentication/master_login.html" %}
+{% load static %}
+{% block title %} ForgetPassword {% endblock %}
+
+{% block content %}
+<form id="forget_pass" method="post">
+		{% csrf_token %}
+		<div class="form-floating mb-4">
+				<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com"
+							 autocomplete="off"/>
+				<label for="email">Email <span class="text-danger">*</span></label>
+				<span id="email_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-outline mb-4 d-grid">
+				<input type="submit" value="Send" class="btn btn-primary btn-block"/>
+		</div>
+		{% if error %}
+		<p style="color: red;">{{ error }}</p>
+		{% endif %}
+		<div class="col-12">
+				<hr class="mb-4 border-secondary-subtle">
+				<div class="d-flex gap-4 justify-content-center">
+						<a href="/salon_admin/login/" class="link-secondary text-decoration-none">Log In</a>
+				</div>
+		</div>
+</form>
+{% endblock %}
+{% block extrascript %}
+<script src="{% static 'js/forgetpass.js' %}"></script>
+{% endblock %}
+

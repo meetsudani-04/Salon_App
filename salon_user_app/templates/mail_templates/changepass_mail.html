@@ -1,0 +1,49 @@
+{% extends "mail_templates/master_mail.html" %}
+{% load static %}
+{% block content %}
+<div style="
+            margin: 0;
+            margin-top: 70px;
+            padding: 92px 30px 115px;
+            background: #ffffff;
+            border-radius: 30px;
+            text-align: center;
+          ">
+		<div style="width: 100%; max-width: 489px; margin: 0 auto">
+				<h1 style="
+                margin: 0;
+                font-size: 24px;
+                font-weight: 500;
+                color: #1f1f1f;
+              ">
+						Password Changed Successfully
+				</h1>
+				<p style="
+                margin: 0;
+                margin-top: 17px;
+                font-size: 16px;
+                font-weight: 500;
+              ">
+						Hey {{ user.first_name }} {{ user.last_name }},
+				</p>
+				<p style="
+                margin: 0;
+                margin-top: 17px;
+                font-weight: 500;
+                letter-spacing: 0.56px;
+              ">
+						Your password has been successfully changed. If you did not initiate this change, please contact support immediately <strong>{{user.email}}</strong>.
+				</p>
+				<p style="
+                margin: 0;
+                margin-top: 60px;
+                font-size: 16px;
+                font-weight: 500;
+                color: #1f1f1f;
+              ">
+						Thank you for being a valued member of the kaiadmin!
+				</p>
+		</div>
+</div>
+
+{% endblock %}

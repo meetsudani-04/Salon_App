@@ -1,0 +1,39 @@
+{% extends "authentication/user_master_login.html" %}
+{% load static %}
+{% block title %} Reset Password {% endblock %}
+
+{% block content %}
+<form id="resetpass_form" method="post">
+		{% csrf_token %}
+		<div class="form-floating mb-4 password-container">
+				<input type="password" class="form-control" name="new_password" id="new_password" placeholder="Password"/>
+				<label for="new_password">Password <span class="text-danger">*</span></label>
+				<i class="bi bi-eye-slash" id="togglePassword"></i>
+				<span id="new_password_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-floating mb-4">
+				<input type="password" class="form-control" name="confirm_password" id="confirm_password"
+							 placeholder="Confirm Password"/>
+				<label for="confirm_password">Confirm Password<span class="text-danger">*</span></label>
+				<!-- <i class="bi bi-eye-slashz" id="togglePassword"></i> -->
+				<span id="confirm_password_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-outline mb-4 d-grid">
+				<input type="submit" value="Reset Password" class="btn btn-primary btn-block"/>
+		</div>
+
+		<div class="col-12">
+				<hr class="mb-4 border-secondary-subtle">
+				<div class="d-flex gap-4 justify-content-center">
+						<a href="/login" class="link-secondary text-decoration-none">Log In</a>
+				</div>
+		</div>
+</form>
+{% endblock %}
+
+
+{% block extrascript %}
+<script src="{% static 'New folder/js/resetpass.js' %}"></script>
+{% endblock %}

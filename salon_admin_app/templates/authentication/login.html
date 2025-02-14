@@ -1,0 +1,41 @@
+{% extends "authentication/master_login.html" %}
+{% load static %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<form id="login_form" method="POST">
+		{% csrf_token %}
+		<div class="form-floating mb-4">
+				<input type="text" class="form-control" name="username" id="username" placeholder="Enter UserName"
+							 autocomplete="off"/>
+				<label for="username">UserName <span class="text-danger">*</span></label>
+				<span id="username_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-floating mb-4 password-container">
+				<input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
+				<label for="password">Password <span class="text-danger">*</span></label>
+				<i class="bi bi-eye-slash" id="togglePassword"></i>
+				<span id="password_error" class="text-danger"></span>
+		</div>
+
+		<div class="form-outline mb-4 d-grid">
+				<input type="submit" value="Log in" class="btn btn-primary btn-block"/>
+				<span id="error_msg" class="text-danger"></span>
+		</div>
+
+		<div class="text-center mb-4">
+				<a class="text-muted" href="/salon_admin/forget_password/">Forgot password?</a>
+		</div>
+
+</form>
+{% for message in messages %}
+<div class="alert alert-danger">
+		<a class="close" href="#" data-dismiss="alert">×</a>
+		{{ message }}
+</div>
+{% endfor %}
+{% endblock %}
+{% block extrascript %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

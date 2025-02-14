@@ -1,0 +1,74 @@
+{% extends "master_user_index.html" %}
+{% load static %}
+{% block title %}Book Appointment{% endblock %}
+{% block extended %}{% endblock %}
+
+{% block content %}
+<!-- Begin:: Appointment Section -->
+<section class="commonSection apointmentSection3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-7">
+                <div class="appointment_form">
+                    <h3>Make Appointment</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                    <form method="post" class="row">
+                    {% csrf_token %}
+                        <div class="input-field col-lg-6">
+                            <input type="text" name="name" placeholder="Name" value="{{customer.first_name}}"/>
+                        </div>
+                        <div class="input-field col-lg-6">
+                            <input type="email" name="email" placeholder="E-mail" value="{{customer.email}}"/>
+                        </div>
+                        <div class="input-field col-lg-6">
+                            <input type="number" name="phone" placeholder="Phone Number" value="{{customer.phone}}"/>
+                        </div>
+                         <div class="input-field col-lg-6">
+                            <label>Choose Services</label><br>
+                            {% for services in services_list %}
+                             <div class="form-check">
+                                <input type="checkbox" name="services" value="{{ services.id }}" id="service_{{ services.id }}">
+                                <label for="service_{{ services.id }}">{{ services.name }} - {{ services.price }}</label><br>
+                             </div>
+                            {% endfor %}
+                        </div>
+                        <div class="input-field col-lg-12">
+                            <input type="text" name="date" class="datetime-picker" placeholder="Select Date & Time" value=""/>
+                            <i class="icofont-ui-calendar"></i>
+                        </div>
+                        <div class="input-field col-lg-12">
+                            <button type="submit" class="mo_btn"><i class="icofont-calendar"></i>Make  An Appointment</button>
+                        </div>
+                    </form>
+                    <p style="color:red">{{ error }}</p>
+                    <span style="color:red">{{error_message}}</span>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5">
+                <div class="icon_box_01">
+                    <h4><i class="icofont-clock-time"></i>Hours:</h4>
+                    <p>
+                        Mon to Fri: 7:30 am — 1:00 am<br>
+                        Sat: 9:00 am — 1:00 am<br>
+                        Sun: 9:00 am — 11:30 pm
+                    </p>
+                </div>
+                <div class="icon_box_01">
+                    <h4><i class="icofont-location-pin"></i>Location:</h4>
+                    <p>
+                        85 Royal Mint Street,<br>
+                        London, E1 8LG<br>
+                        United Kingdom
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End:: Appointment Section -->
+
+{% endblock %}
+
+{% block extra_scripts %}{% endblock %}
+
