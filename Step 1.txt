@@ -1,0 +1,94 @@
+Step 1 : Create Virtual Environment:
+	py -m venv <myworld> salon_venv
+
+Step 2 : activate the environment:
+	salon_venv\Scripts\activate.ps1
+
+Step 3 : Install Django:
+	  py -m pip install Django
+
+Step 4 : Create Project:
+	django-admin startproject salon_project
+
+Step 5 : Run the Django Project:
+	<salon_project> > py manage.py runserver
+
+Step 6 : Create App:
+	py manage.py startapp salon_admin_app
+
+Step 7 : Change Settings: 
+	Look up the INSTALLED_APPS[] list and add the members app like this:
+	my_tennis_club/my_tennis_club/settings.py
+	INSTALLED_APPS = [
+    		'django.contrib.admin',
+    		'django.contrib.auth',
+    		'django.contrib.contenttypes',
+    		'django.contrib.sessions',
+    		'django.contrib.messages',
+    		'django.contrib.staticfiles',
+    		'members'
+	]
+
+Step 8 : Views:
+	
+Step 9 : Add URLs :
+	Create a file named urls.py in the same folder as the views.py file, and type this code in it:
+	my_tennis_club/members/urls.py:
+	from django.urls import path
+	from . import views
+
+	urlpatterns = [
+    		path('members/', views.members, name='members'),
+	]
+
+Step 10 : Create Templates:
+	1. Create a templates folder inside the members folder, and create a HTML file named myfirst.html.
+	2. Modify the View:
+		from django.http import HttpResponse
+		from django.template import loader
+
+		def members(request):
+		  template = loader.get_template('myfirst.html')
+		  return HttpResponse(template.render())
+
+	3. Then run this command after :
+	py manage.py migrate
+	py manage.py runserver
+
+Step 11 : Download PostgreSQL in V.E
+	pip install psycopg2-binary
+
+step 12 change setting
+	DATABASES = {
+		"default": {
+        		"ENGINE": "django.db.backends.postgresql",
+        		"NAME": "salon_db",
+        		"USER": "postgres",
+        		"PASSWORD": "1234",
+        		"HOST": "localhost",
+        		"PORT": "5432",
+    }
+}
+
+SETP 13 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
